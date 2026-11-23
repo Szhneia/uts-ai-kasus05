@@ -90,8 +90,7 @@ def main():
     X = df[KOLOM_INPUT_MENTAH].copy()
     y = df[KOLOM_TARGET].copy()
 
-    # 1. Split train/test SEBELUM imputasi, scaling, atau encoding (anti data leakage)
-    # Gunakan stratify=y agar proporsi kelas minoritas (snow, drizzle) terjaga
+    # 1. Split train-test (stratify untuk jaga proporsi kelas yang sedikit)
     X_train, X_test, y_train, y_test = train_test_split(
         X,
         y,
@@ -105,7 +104,7 @@ def main():
     print("Distribusi train:", y_train.value_counts().to_dict())
     print("Distribusi test :", y_test.value_counts().to_dict())
 
-    # 2. Pemilihan model terbaik HANYA menggunakan Cross-Validation di data train
+    # 2. Pilih model terbaik lewat CV di data train
     cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=RANDOM_STATE)
     scoring = {
         "f1_macro": "f1_macro",
@@ -138,15 +137,15 @@ def main():
     )
     print(df_cv.to_string(index=False, float_format=lambda x: f"{x:.4f}"))
 
-    # Pilih model terbaik berdasarkan metrik utama Macro F1-Score
+    # Pakai Macro F1 sebagai patokan
     nama_terbaik = df_cv.iloc[0]["model"]
     print(f"\nModel terpilih (CV F1-Macro tertinggi): {nama_terbaik}")
 
-    # 3. Latih ulang model terbaik pada seluruh data train
+    # 3. Fit ulang model terbaik ke seluruh data train
     pipeline_terbaik = bangun_pipeline(kandidat[nama_terbaik])
     pipeline_terbaik.fit(X_train, y_train)
 
-    # 4. Evaluasi pada data test TEPAT SATU KALI
+    # 4. Cek performa akhir di data test
     y_pred = pipeline_terbaik.predict(X_test)
     labels = list(pipeline_terbaik.classes_)
 
@@ -173,7 +172,7 @@ def main():
     print("\nClassification Report:")
     print(metrik_test["classification_report_text"])
 
-    # 5. Simpan pipeline lengkap + metadata ke models/model_kasus05.joblib
+    # 5. Simpan model dan metadata ke joblib
     PATH_FOLDER_MODEL.mkdir(parents=True, exist_ok=True)
     artefak = {
         "pipeline": pipeline_terbaik,

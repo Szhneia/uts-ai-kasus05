@@ -12,7 +12,7 @@ from fitur import KOLOM_INPUT_MENTAH, rekayasa_fitur
 PATH_MODEL = Path("models") / "model_kasus05.joblib"
 PATH_ILUSTRASI = Path("assets") / "weather_icon.png"
 
-# Palet warna sesuai desain
+# Palet warna 
 BG_CREAM = "#FFF8E8"
 NAVY = "#172755"
 SLATE_BLUE = "#6682A4"
@@ -756,7 +756,7 @@ def main():
 
     tab_prediksi, tab_evaluasi = st.tabs(["Prediksi Cuaca", "Evaluasi & Metadata Model"])
 
-    # ================= TAB 1: PREDIKSI CUACA =================
+    #  Tab 1 Prediksi Cuaca
     with tab_prediksi:
         kol_kiri, kol_kanan = st.columns(2, gap="medium")
 
@@ -891,7 +891,7 @@ def main():
                 )
                 st.markdown(hasil_html, unsafe_allow_html=True)
 
-    # ================= TAB 2: EVALUASI & METADATA MODEL =================
+    # Tab 2 Evaluasi & Metadata Model
     with tab_evaluasi:
         ekiri, ekanan = st.columns(2, gap="medium")
 

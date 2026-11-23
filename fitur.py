@@ -73,7 +73,7 @@ def rekayasa_fitur(df: pd.DataFrame) -> pd.DataFrame:
 
     tanggal = pd.to_datetime(hasil["date"], errors="coerce")
 
-    # 1. Fitur waktu wajib (Tugas Khusus Kasus 5)
+    # 1. Fitur waktu wajib
     hasil["month"] = tanggal.dt.month
     hasil["day_of_year"] = tanggal.dt.dayofyear
     hasil["season"] = hasil["month"].apply(
