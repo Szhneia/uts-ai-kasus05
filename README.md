@@ -1,4 +1,4 @@
-# UTS Intelegensi Buatan — Kasus 5: Klasifikasi Kondisi Cuaca Harian di Seattle
+# UTS Intelegensi Buatan - Kasus 5: Klasifikasi Kondisi Cuaca Harian di Seattle
 
 - **Nama:** Dhenia Putri Nuraini
 - **NIM:** 24552011311
